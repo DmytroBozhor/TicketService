@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
+
 @Service
 @Transactional
 public class TicketService {
@@ -20,13 +22,14 @@ public class TicketService {
         this.modelMapper = modelMapper;
     }
 
-    public void save(TicketEntity ticket) {
+    public int save(TicketEntity ticket) {
+        ticket.setTimestamp(LocalDateTime.now());
         ticketRepository.save(ticket);
+        return ticket.getId();
     }
 
     public int save(TicketDto ticketDto) {
         TicketEntity ticket = modelMapper.map(ticketDto, TicketEntity.class);
-        ticketRepository.save(ticket);
-        return ticket.getId();
+        return save(ticket);
     }
 }

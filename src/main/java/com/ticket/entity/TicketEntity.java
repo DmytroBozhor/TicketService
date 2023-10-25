@@ -1,10 +1,13 @@
 package com.ticket.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "ticket")
@@ -16,14 +19,14 @@ public class TicketEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private int id;
-    @NotNull
+    @NotBlank
     @Column(name = "route_number")
     private String routeNumber;
     @NotNull
     @Column(name = "timestamp")
-    private long timestamp;
+    private LocalDateTime timestamp;
 
-    public TicketEntity(String routeNumber, long timestamp) {
+    public TicketEntity(String routeNumber, LocalDateTime timestamp) {
         this.routeNumber = routeNumber;
         this.timestamp = timestamp;
     }
